@@ -13,7 +13,14 @@ The Symfony framework is used to make calls to this API.
 * Since there is a composer.lock - file, to make sure we use the same versions of packages use in terminal 
     > composer install
     
-* adapt 
+* get your secret key for the darksky api
+
+        https://darksky.net/dev
+        
+        click 'try for free'
+        
+* add it to the configurations
+
 
 
 
