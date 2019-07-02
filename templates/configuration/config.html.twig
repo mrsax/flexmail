@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets_local %}
+{#    <link rel="stylesheet" href="{{ asset('css/earnings.show.detail.css') }}">#}
+{% endblock %}
+
+{% block pagetitle %} Configuration{%- endblock %}
+
+{% block body %}
+    <h4>Set configuration for API calls : </h4>
+    {{ form(form) }}
+{% endblock body %}
+
