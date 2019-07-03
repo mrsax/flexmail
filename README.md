@@ -40,5 +40,11 @@ The Symfony framework is used to make calls to this API.
 
 * asset package
 
+* profile (debug toolbar)
+
+* monolog for logging
+
+* debugging tools
+
 
 
