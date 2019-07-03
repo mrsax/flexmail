@@ -24,8 +24,21 @@ The Symfony framework is used to make calls to this API.
 
 
 
+## Packages :
 
+* basic symfony as api-end
 
+* annotation (for routing etc)
+
+* twig (frontend)
+
+* webpack (with basic boorstrap & jQuery)
+
+* swagger (documentation)
+
+* phpUnit (unit tests, )
+
+* asset package
 
 
 
