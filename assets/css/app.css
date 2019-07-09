@@ -3,11 +3,25 @@ body {
     color : #ffffff;
 }
 
-ul.logo-nav
+.nav-wrapper
 {
     border:1px solid #FFFFFF;
+    max-width: 200px;
+}
+
+a:link, a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #89a53f;
+    text-decoration: none;
+}
+
+ul.logo-nav
+{
     list-style: none;
-    max-width:200px;
     text-align: left;
 }
 

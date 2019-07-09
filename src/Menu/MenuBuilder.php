@@ -33,14 +33,8 @@ class MenuBuilder
         $menu = $this->factory->createItem('root');
 
         $menu->addChild('Home', ['route' => 'home'])->setAttribute('class', '')->setLinkAttribute('class', '')->setLabel('Home');
-
-
-        //================ BCC payments ==================
-       /* $menu->addChild('Bcc Payments')
-            ->setAttribute('class', 'nav-item mr-auto');
-
-        $menu['Bcc Payments']->addChild('Upload', ['route' => 'uploadBcc'])->setAttribute('class', 'nav-item mr-auto')->setLinkAttribute('class', 'nav-link');
-        $menu['Bcc Payments']->addChild('View', ['route' => 'bcc_payment_index'])->setAttribute('class', 'nav-item mr-auto')->setLinkAttribute('class', 'nav-link');*/
+        $menu->addChild('Forecast', ['route' => 'weather_forecast'])->setAttribute('class', '')->setLinkAttribute('class', '')->setLabel('Forecast');
+        $menu->addChild('History', ['route' => 'weather_history'])->setAttribute('class', '')->setLinkAttribute('class', '')->setLabel('History');
 
         return $menu;
     }
