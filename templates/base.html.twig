@@ -8,11 +8,14 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <nav>
+            {{ knp_menu_render('main', {'template':'menu/knp_menu.html.twig'}) }}
+        </nav>
+        {% block body %}
+
+        {% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-            <script>
-            </script>
         {% endblock %}
     </body>
 </html>

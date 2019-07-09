@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>The Weather App </h1>
+
+    This application will tell you the weather from the last days and the forecast for the next days:
+    <ul>
+        <li>set your parameters <a href="{{ asset('configuration') }}" > here </a> </li>
+        <li>weather <a href="{{ asset('weather_forecast') }}" > previsions </a> </li>
+        <li>weather <a href="{{ asset('weather_history') }}" > history </a> </li>
+    </ul>
+</div>
+{% endblock %}

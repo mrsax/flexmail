@@ -2,3 +2,21 @@ body {
     background-color: #404040 ;
     color : #ffffff;
 }
+
+ul.logo-nav
+{
+    border:1px solid #FFFFFF;
+    list-style: none;
+    max-width:200px;
+    text-align: left;
+}
+
+.no-margin
+{
+    margin:0;
+}
+
+.no-padding
+{
+    padding:0;
+}

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ApiConfigurationType extends AbstractType
+class ApiConfigurationFormType extends AbstractType
 {
     /**
      * Create a form to setup an api.
