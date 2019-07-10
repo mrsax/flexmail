@@ -1,12 +1,69 @@
-body {
-    background-color: #404040 ;
-    color : #ffffff;
+/* ########### css variables ############### */
+
+:root {
+    --main-bg-color : #8FDDF3;
+    --main-color : #ffffff;
+    --main-content-width: 80%;
+    --main-nav-width: 18%;
+    --main-margin-top: 20px;
+    --background-image: url("https://flexmail.be/frontend/web/uploads/img/cache/Sliders/Slider1/69ca3e5d58-3_1920x700.png");
 }
+
+
+/* ########### general ############### */
+
+body {
+    background-color: var(--main-bg-color);
+    color : var(--main-color);
+}
+
+header
+{
+    background: var(--background-image) left repeat-x;
+    width: 100%;
+    height: 700px;
+    border:1px solid green;
+}
+
+nav {
+    float:left;
+    min-width: var(--main-nav-width);
+    position: relative;
+    z-index: 1;
+    left:10px;
+    top: var(--main-margin-top);
+}
+
+section.content
+{
+    position: relative;
+    float:right;
+    width: var(--main-content-width);
+    top: var(--main-margin-top);
+}
+
+.no-margin
+{
+    margin:0;
+}
+
+.no-padding
+{
+    padding:0;
+}
+
+h4.title
+{
+    padding:20px;
+}
+
+/* ########### navigation ############### */
 
 .nav-wrapper
 {
     border:1px solid #FFFFFF;
     max-width: 200px;
+    padding: 20px;
 }
 
 a:link, a {
@@ -25,12 +82,21 @@ ul.logo-nav
     text-align: left;
 }
 
-.no-margin
+
+
+
+
+
+/* ###########  config form ############### */
+div.form-layout
 {
-    margin:0;
+    max-width:60%;
+    border:1px solid #FFFFFF;
+    padding: 20px;
 }
 
-.no-padding
+span.error-layout
 {
-    padding:0;
+    color:red;
+    font-size: larger;
 }

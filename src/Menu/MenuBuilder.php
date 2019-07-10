@@ -33,6 +33,7 @@ class MenuBuilder
         $menu = $this->factory->createItem('root');
 
         $menu->addChild('Home', ['route' => 'home'])->setAttribute('class', '')->setLinkAttribute('class', '')->setLabel('Home');
+        $menu->addChild('Configuration', ['route' => 'configuration'])->setAttribute('class', '')->setLinkAttribute('class', '')->setLabel('Configuration');
         $menu->addChild('Forecast', ['route' => 'weather_forecast'])->setAttribute('class', '')->setLinkAttribute('class', '')->setLabel('Forecast');
         $menu->addChild('History', ['route' => 'weather_history'])->setAttribute('class', '')->setLinkAttribute('class', '')->setLabel('History');
 

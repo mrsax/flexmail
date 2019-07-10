@@ -27,10 +27,13 @@ class ConfigurationController extends AbstractController
 
         $form->handleRequest($request);
 
+        $errors = $form->getErrors();
+
         if ($form->isSubmitted() && $form->isValid())
         {
             $data = $form->getData();
-            $container->setParameter('mailer.transport', 'sendmail');
+            dd($data);
+            $this->container->setParameter('mailer.transport', 'sendmail');
         }
 
         return $this->render('configuration/config.html.twig', ['form' => $form->createView()]);

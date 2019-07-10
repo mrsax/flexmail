@@ -6,10 +6,45 @@
 {% block pagetitle %} Configuration{%- endblock %}
 
 {% block body %}
-    <h4>Set configuration for API calls : </h4>
-    {{ form_start(form) }}
+    <h4 class="title">Set configuration for API calls : </h4>
+    <div class="form-layout">
+        {{ form_start(form) }}
+        <div class="form-group">
+            <label for="apiName">{{ form_label(form.apiName) }} <span class="error-layout">{{ form_errors(form.apiName) }} </span></label>
+            {{ form_widget(form.apiName, {'attr': {'class': 'form-control', 'id': 'apiName', 'placeholder': 'api.darksky'}}) }}
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="apiUrl">{{ form_label(form.apiUrl) }} <span class="error-layout">{{ form_errors(form.apiUrl) }}</span></label>
+                {{ form_widget(form.apiUrl, {'attr': {'class': 'form-control', 'id': 'apiUrl' , 'placeholder': 'https://api.darksky.net'}}) }}
+            </div>
+            <div class="col">
+                <label for="apiMethod">{{ form_label(form.apiMethod) }} <span class="error-layout">{{ form_errors(form.apiMethod) }}</span></label>
+                {{ form_widget(form.apiMethod, {'attr': {'class': 'form-control', 'id': 'apiMethod'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="endpoint">{{ form_label(form.endpoint) }} <span class="error-layout">{{ form_errors(form.endpoint) }}</span> </label>
+            {{ form_widget(form.endpoint, {'attr': {'class': 'form-control', 'id': 'endpoint'}}) }}
+        </div>
+        <div class="form-group">
+            <label for="apiKey">{{ form_label(form.apiKey) }} <span class="error-layout">{{ form_errors(form.apiKey) }} </span></label>
+            {{ form_widget(form.apiKey, {'attr': {'class': 'form-control', 'id': 'apiKey'}}) }}
+        </div>
+        <div class="form-group">
+            <label for="country">{{ form_label(form.country) }} <span class="error-layout">{{ form_errors(form.country) }} </span></label>
+            {{ form_widget(form.country, {'attr': {'class': 'form-control', 'id': 'country'}}) }}
+        </div>
+        <div class="form-group">
+            <label for="city">{{ form_label(form.city) }} <span class="error-layout">{{ form_errors(form.city) }} </span></label>
+            {{ form_widget(form.city, {'attr': {'class': 'form-control', 'id': 'city'}}) }}
+
+        </div>
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">Submit!</button>
         {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">Submit!</button>
-    {{ form_end(form) }}
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
 {% endblock body %}
 
