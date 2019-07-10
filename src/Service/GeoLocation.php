@@ -4,9 +4,22 @@ namespace App\Service;
 
 class GeoLocation
 {
-    public function returnGeoLocation()
+    private const COUNTRY = 'belgium';
+
+    public function returnGeoLocation($city)
     {
-        return 'tesert';
+        $geo = new \JeroenDesloovere\Geolocation\Geolocation();
+        //$geo->getCoordinates();
+        //$geolocation = $this->get('jeroendesloovere.geolocation');
+//        $result = \JeroenDesloovere\Geolocation\Geolocation::getCoordinates(
+//            '',
+//            '',
+//            $city->getName(),
+//            $city->getZipcode(),
+//            'belgium'
+//        );
+
+        dd($geo);
     }
 
 }

@@ -13,7 +13,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 
 class LoadCitiesCommand extends Command
 {
-    private const DOWNLOAD_PATH_DOC = './src/Fixtures/cities.sql';
+    private const DOWNLOAD_PATH_DOC = './src/Fixtures/cities.json';
 
     protected static $defaultName = 'app:load-cities';
 
