@@ -21,6 +21,10 @@ The Symfony framework is used to make calls to this API.
         
 * add it to the configurations
 
+* load the fixtures 
+
+    > ./bin/console app:load-cities
+
 
 
 
@@ -45,6 +49,8 @@ The Symfony framework is used to make calls to this API.
 * monolog for logging
 
 * debugging tools
+
+...
 
 
 

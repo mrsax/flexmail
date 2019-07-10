@@ -70,15 +70,8 @@ class ApiConfigurationFormType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('country', TextType::class, [
-                'label' => 'Country  : ',
-                'constraints' => [
-                    new NotBlank(),
-                ],
-                'required' => false,
-            ])
             ->add('city', TextType::class, [
-                'label' => 'City by English name  : ',
+                'label' => 'Choose a Belgian city : ',
                 'constraints' => [
                     new NotBlank(),
                 ],
