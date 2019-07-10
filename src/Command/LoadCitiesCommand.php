@@ -43,28 +43,13 @@ class LoadCitiesCommand extends Command
 
         foreach($file as $line)
         {
-            $rawQuery[] = $line;
             $progressBar->advance();
+            $statement = $em->getConnection()->prepare($line);
+            $statement->execute();
         }
 
         $progressBar->finish();
 
-        dd($rawQuery);
-        $output->writeln([
-            'Cities have been loaded to database.',
-            '============',
-            '',
-        ]);
-        $arg1 = $input->getArgument('arg1');
-
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
-        }
-
-        if ($input->getOption('option1')) {
-            // ...
-        }
-
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success('Cities have been loaded to database.');
     }
 }

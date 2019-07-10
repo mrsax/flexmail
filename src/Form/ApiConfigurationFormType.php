@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\City;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -70,12 +72,20 @@ class ApiConfigurationFormType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('city', TextType::class, [
-                'label' => 'Choose a Belgian city : ',
+            ->add('city', EntityType::class, [
+                'label' => 'City : ',
                 'constraints' => [
                     new NotBlank(),
                 ],
                 'required' => false,
+                'class' => City::class,
+                'choice_label' => function(City $city) {
+                    return sprintf('(%d) %s', $city->getZipcode(), $city->getName());
+                },
+                'choice_value' => 'id',
+                'placeholder' => 'Choose a city',
+                'invalid_message' => 'Choose a City!',
+                'attr' => ['class' => 'input-field']
             ])
         ;
     }

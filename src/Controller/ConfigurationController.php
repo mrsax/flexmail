@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\PrognosisToRealSaveType;
+use App\Service\GeoLocation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,10 +19,11 @@ class ConfigurationController extends AbstractController
      * @Route("/configuration", name="configuration")
      *
      * @param Request $request
+     * @param GeoLocation $geolocation
      *
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request, GeoLocation $geolocation): Response
     {
         $form = $this->generateApiConfigurationForm();
 
@@ -32,10 +34,13 @@ class ConfigurationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $data = $form->getData();
-            dd($data);
-            $this->container->setParameter('mailer.transport', 'sendmail');
-        }
 
+            $geolocation->returnGeoLocation($data['city']);
+            //$this->container->setParameter('api.key', $data['apiKey']);
+           dd($data);
+
+        }
+        //dd($this->container->getParameter('api.key'));
         return $this->render('configuration/config.html.twig', ['form' => $form->createView()]);
     }
 

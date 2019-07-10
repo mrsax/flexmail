@@ -21,6 +21,17 @@ The Symfony framework is used to make calls to this API.
         
 * add it to the configurations
 
+* create database and tables (update .env file)
+
+    * set DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name"
+        with your credentials.
+        >  php bin/console doctrine:database:create
+        
+        >  php bin/console make:migration
+        
+        > php bin/console doctrine:migrations:migrate
+
+
 * load the fixtures 
 
     > ./bin/console app:load-cities

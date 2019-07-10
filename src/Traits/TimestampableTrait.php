@@ -16,7 +16,7 @@ trait TimestampableTrait
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime", nullable = false)
      */
     private $created;
 
@@ -70,10 +70,9 @@ trait TimestampableTrait
     }
 
     /**
-     * @param \DateTime $created
      * @throws \Exception
      */
-    public function setCreated(\DateTime $created = null): void
+    public function setCreated(): void
     {
         $this->created = new \DateTime("now");
     }

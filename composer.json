@@ -6,7 +6,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/annotations": "^1.6",
-        "jeroendesloovere/geolocation-php-api": "^2.1",
         "knplabs/knp-menu-bundle": "^2.2",
         "nelmio/api-doc-bundle": "^3.4",
         "sensio/framework-extra-bundle": "^5.3",

@@ -96,9 +96,6 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
-    "jeroendesloovere/geolocation-php-api": {
-        "version": "2.1.0"
-    },
     "knplabs/knp-menu": {
         "version": "2.3.0"
     },
