@@ -33,14 +33,14 @@ class ConfigurationController extends Controller
         if ($form->isSubmitted() && $form->isValid())
         {
             $data = $form->getData();
-            $apiParams->setApiParameters($data);
+            $api = $apiParams->setApiParameters($data);
 
 
 
             //$this->container()->setParameter('mailer.transport', 'sendmail');
             //$geolocation->loadGeolocationToDatabase($data['city']);
             //$this->container->setParameter('api.key', $data['apiKey']);
-           dd($data);
+           dd($api);
 
         }
         //dd($this->container->getParameter('api.key'));

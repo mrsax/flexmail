@@ -24,7 +24,7 @@ class ApiParameters
         $this->em = $em;
     }
 
-    public function setApiParameters(array $prams): void
+    public function setApiParameters(array $prams): Api
     {
         $apiRepo = $this->em->getRepository(Api::class);
 
@@ -37,7 +37,7 @@ class ApiParameters
                 ->setUrl($prams[self::API_FORM_INPUT_URL])
                 ->setEndpoint($prams[self::API_FORM_INPUT_ENDPOINT])
                 ->setApiKey($prams[self::API_FORM_INPUT_KEY]);
-
+            $api = $res;
         }
         else
         {
@@ -52,6 +52,7 @@ class ApiParameters
             $this->em->persist($api);
             $this->em->flush($api);
         }
-        dd('set');
+
+        return $api;
     }
 }
