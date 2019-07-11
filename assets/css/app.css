@@ -133,6 +133,7 @@ div.week-forecast>ul>li
 .partly-cloudy-day
 {
     background-image: url("../../public/img/weather/partly-cloudy.gif");
+    background-size: 100% 100%;
 }
 
 /* ###########  forecats : day ############### */
