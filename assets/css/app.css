@@ -100,3 +100,16 @@ span.error-layout
     color:red;
     font-size: larger;
 }
+
+/* ###########  forecats : index ############### */
+
+div.week-forecast
+{
+    border: 1px solid red;
+}
+
+
+
+
+
+/* ###########  forecats : day ############### */

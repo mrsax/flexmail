@@ -9,10 +9,6 @@
     <h4 class="title">Set configuration for API calls : </h4>
     <div class="form-layout">
         {{ form_start(form) }}
-        <div class="form-group">
-            <label for="apiName">{{ form_label(form.apiName) }} <span class="error-layout">{{ form_errors(form.apiName) }} </span></label>
-            {{ form_widget(form.apiName, {'attr': {'class': 'form-control', 'id': 'apiName', 'placeholder': 'api.darksky'}}) }}
-        </div>
         <div class="row">
             <div class="col">
                 <label for="apiUrl">{{ form_label(form.apiUrl) }} <span class="error-layout">{{ form_errors(form.apiUrl) }}</span></label>

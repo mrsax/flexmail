@@ -8,6 +8,8 @@ use App\Entity\City;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\DBAL\DBALException;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Darksky\Darksky;
+use Symfony\Component\Validator\Constraints\Json;
 
 /**
  * Service that provides everything about the Api parameters.
@@ -18,8 +20,8 @@ class ApiParameters
 {
     private const  API_FORM_INPUT_METHOD = 'apiMethod';
     private const  API_FORM_INPUT_URL = 'apiUrl';
-    private const  API_FORM_INPUT_ENDPOINT = 'apiName';
-    private const  API_FORM_INPUT_KEY = 'endpoint';
+    private const  API_FORM_INPUT_ENDPOINT = 'endpoint';
+    private const  API_FORM_INPUT_KEY = 'apiKey';
     private const  API_FORM_INPUT_CITY = 'city';
 
     private $em;
@@ -42,6 +44,7 @@ class ApiParameters
      */
     public function setApiParameters(array $prams): Api
     {
+
         $apiRepo = $this->em->getRepository(Api::class);
         $cityRepo = $this->em->getRepository(City::class);
 
@@ -82,5 +85,42 @@ class ApiParameters
         }
 
         return $api;
+    }
+
+    /**
+     * Call the weather API service and return a parsed jSon.
+     *
+     * @return \stdClass
+     * @throws \Exception
+     */
+    public function callApi(): array
+    {
+        $apiRepo = $this->em->getRepository(Api::class);
+        $params = $apiRepo->findAll()[0];
+
+        try {
+
+            $result = (new Darksky($params->getApiKey()))->forecast($params->getCity()->getLatitude(), $params->getCity()->getLongitude());
+            $res = json_decode($result, true);
+
+        } catch(DarkskyException $e) {
+            //TODO
+        } catch(Exception $e) {
+            // TODO
+        }
+
+        return $res;
+    }
+
+    /**
+     * Get the info from the current api settings and linked city.
+     *
+     * @return Api|object
+     */
+    public function getApiAndCityInfo(): Api
+    {
+        $apiRepo = $this->em->getRepository(Api::class);
+
+        return $apiRepo->findAll()[0];
     }
 }

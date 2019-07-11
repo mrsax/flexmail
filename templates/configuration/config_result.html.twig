@@ -14,8 +14,7 @@
         <li><span class="left">key : </span><span class="right">{{ api.apiKey }}</span></li>
         <li><span class="left">created : </span><span class="right">{{ api.created|date('d-m-Y m:H') }}</span></li>
         <li><span class="left">updated : </span><span class="right">{{ api.updated|date('d-m-Y m:H') }}</span></li>
-        <li><span class="left">city : </span><span class="right">( {{ api.city.zip }} ) {{ api.city.name }} ( {{ api.city.longitude }},  {{ api.city.latitude }})</span></li>
+        <li><span class="left">city : </span><span class="right">( {{ api.city.zipcode }} ) {{ api.city.name }} ( {{ api.city.longitude }},  {{ api.city.latitude }})</span></li>
     </ul>
-
 {% endblock body %}
 

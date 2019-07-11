@@ -27,14 +27,6 @@ class ApiConfigurationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('apiName', TextType::class, [
-                'label' => 'Api Name : ',
-                'required' => false,
-                'constraints' => [
-                    new NotBlank(),
-                ],
-                'empty_data' => 'api.darksky'
-            ])
             ->add('apiMethod', ChoiceType::class, [
                 'label' => 'Api Method : ',
                 'constraints' => [
