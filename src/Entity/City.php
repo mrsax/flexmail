@@ -40,6 +40,11 @@ class City
      */
     private $latitude;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Api", mappedBy="city", cascade={"persist", "remove"})
+     */
+    private $api;
+
 
 
     public function getId(): ?int
@@ -91,6 +96,23 @@ class City
     public function setLatitude(string $latitude): self
     {
         $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getApi(): ?Api
+    {
+        return $this->api;
+    }
+
+    public function setApi(Api $api): self
+    {
+        $this->api = $api;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $api->getCity()) {
+            $api->setCity($this);
+        }
 
         return $this;
     }

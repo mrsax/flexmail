@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets_local %}
+    {#    <link rel="stylesheet" href="{{ asset('css/earnings.show.detail.css') }}">#}
+{% endblock %}
+
+{% block pagetitle %} Configuration{%- endblock %}
+
+{% block body %}
+    <h4 class="title">Actual API configuration : </h4>
+    <ul>
+        <li><span class="left">Url : </span><span class="right">{{ api.url }}</span></li>
+        <li><span class="left">method : </span><span class="right">{{ api.method }}</span></li>
+        <li><span class="left">endpoint : </span><span class="right">{{ api.endpoint }}</span></li>
+        <li><span class="left">key : </span><span class="right">{{ api.apiKey }}</span></li>
+        <li><span class="left">created : </span><span class="right">{{ api.created|date('d-m-Y m:H') }}</span></li>
+        <li><span class="left">updated : </span><span class="right">{{ api.updated|date('d-m-Y m:H') }}</span></li>
+        <li><span class="left">city : </span><span class="right">( {{ api.city.zip }} ) {{ api.city.name }} ( {{ api.city.longitude }},  {{ api.city.latitude }})</span></li>
+    </ul>
+
+{% endblock body %}
+

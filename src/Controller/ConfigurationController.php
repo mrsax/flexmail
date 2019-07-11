@@ -21,6 +21,7 @@ class ConfigurationController extends Controller
      * @param ApiParameters $apiParams
      *
      * @return Response
+     * @throws \Exception
      */
     public function index(Request $request, ApiParameters $apiParams): Response
     {
@@ -35,16 +36,9 @@ class ConfigurationController extends Controller
             $data = $form->getData();
             $api = $apiParams->setApiParameters($data);
 
-
-
-            //$this->container()->setParameter('mailer.transport', 'sendmail');
-            //$geolocation->loadGeolocationToDatabase($data['city']);
-            //$this->container->setParameter('api.key', $data['apiKey']);
-           dd($api);
-
         }
-        //dd($this->container->getParameter('api.key'));
-        return $this->render('configuration/config.html.twig', ['form' => $form->createView()]);
+
+        return $this->render('configuration/config_result.html.twig', ['api' => $api]);
     }
 
 
