@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Url;
+use App\Repository\CityRepository;
 
 class ApiConfigurationFormType extends AbstractType
 {
@@ -79,9 +80,14 @@ class ApiConfigurationFormType extends AbstractType
                 ],
                 'required' => false,
                 'class' => City::class,
+                'query_builder' => function (CityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.name', 'ASC');
+                },
                 'choice_label' => function(City $city) {
                     return sprintf('(%d) %s', $city->getZipcode(), $city->getName());
                 },
+                //'choice_label' => 'name',
                 'choice_value' => 'id',
                 'placeholder' => 'Choose a city',
                 'invalid_message' => 'Choose a City!',
