@@ -17,6 +17,11 @@ use function json_last_error_msg;
 class LoadCitiesCommand extends Command
 {
     private const DOWNLOAD_PATH_DOC = './src/Fixtures/cities.json';
+    private const CITY_FILE_FIELD_NAME = 'city';
+    private const CITY_FILE_FIELD_ZIP = 'zip';
+    private const CITY_FILE_FIELD_LONGITUDE = 'lng';
+    private const CITY_FILE_FIELD_LATITUDE = 'lat';
+
 
     protected static $defaultName = 'app:load-cities';
 
@@ -54,11 +59,12 @@ class LoadCitiesCommand extends Command
                 $progressBar->advance();
 
                 $city = new City();
-                $city->setName($line['city'])
-                    ->setZipcode($line['zip'])
-                    ->setLongitude($line['lng'])
-                    ->setLatitude($line['lat'])
+                $city->setName($line[self::CITY_FILE_FIELD_NAME])
+                    ->setZipcode($line[self::CITY_FILE_FIELD_ZIP])
+                    ->setLongitude($line[self::CITY_FILE_FIELD_LONGITUDE])
+                    ->setLatitude($line[self::CITY_FILE_FIELD_LATITUDE])
                     ->setCreated();
+
                 $em->persist($city);
             }
             $em->flush($city);

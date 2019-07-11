@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\ApiParameters;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ApiConfigurationFormType;
 
-class ConfigurationController extends AbstractController
+class ConfigurationController extends Controller
 {
     /**
      * This controller will show form to set parameters and let user set them at submit.
@@ -17,11 +18,11 @@ class ConfigurationController extends AbstractController
      * @Route("/configuration", name="configuration")
      *
      * @param Request $request
-     * @param GeoLocation $geolocation
+     * @param ApiParameters $apiParams
      *
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request, ApiParameters $apiParams): Response
     {
         $form = $this->generateApiConfigurationForm();
 
@@ -32,7 +33,11 @@ class ConfigurationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $data = $form->getData();
+            $apiParams->setApiParameters($data);
 
+
+
+            //$this->container()->setParameter('mailer.transport', 'sendmail');
             //$geolocation->loadGeolocationToDatabase($data['city']);
             //$this->container->setParameter('api.key', $data['apiKey']);
            dd($data);

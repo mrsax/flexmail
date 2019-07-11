@@ -35,3 +35,10 @@ services:
         arguments: ["@request_stack"]
         tags:
             - { name: knp_menu.menu, alias: main }
+
+    #api configuration
+    app.api.config:
+        class: App\Service\ApiParameters
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
