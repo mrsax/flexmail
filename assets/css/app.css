@@ -7,6 +7,7 @@
     --main-nav-width: 18%;
     --main-margin-top: 20px;
     --background-image: url("https://flexmail.be/frontend/web/uploads/img/cache/Sliders/Slider1/69ca3e5d58-3_1920x700.png");
+    --main-day-block-color : #84D8F1;
 }
 
 
@@ -105,11 +106,39 @@ span.error-layout
 
 div.week-forecast
 {
+    max-width:80%;
     border: 1px solid red;
 }
 
+div.week-forecast>ul
+{
+    padding-top:40px;
+    list-style-type: none;
+}
 
+div.week-forecast>ul>li
+{
+    display: inline-block;
+    height: 400px;
+    width: 140px;
+    border: 1px solid #ffffff;
+    position:relative;
+}
 
+.rain
+{
+    background-image: url("../../public/img/weather/rain.gif") ;
+}
 
+.partly-cloudy-day
+{
+    background-image: url("../../public/img/weather/partly-cloudy.gif");
+}
 
 /* ###########  forecats : day ############### */
+section.day-container
+{
+    width: 100%;
+    height:100%;
+    //background-color: var(--main-day-block-color);
+}

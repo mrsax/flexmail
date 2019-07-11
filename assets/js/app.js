@@ -6,9 +6,9 @@
  */
 
 // any CSS you require will output into a single css file (app.css in this case)
-import('../css/app.css');
+import '../css/app.css';
 
 const $ = require('jquery');
 require('bootstrap');
 require('bootstrap/dist/css/bootstrap.css');
-require
+
