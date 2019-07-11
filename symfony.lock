@@ -1,4 +1,7 @@
 {
+    "darksky/darksky": {
+        "version": "v1.4.3"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {

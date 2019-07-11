@@ -31,14 +31,14 @@ class City
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=11)
+     * @ORM\Column(type="string", length=255)
      */
     private $longitude;
 
     /**
-     * @ORM\Column(type="string", length=11)
+     * @ORM\Column(type="string", length=255)
      */
-    private $lattitude;
+    private $latitude;
 
 
 
@@ -83,14 +83,14 @@ class City
         return $this;
     }
 
-    public function getLattitude(): ?string
+    public function getLatitude(): ?string
     {
-        return $this->lattitude;
+        return $this->latitude;
     }
 
-    public function setLattitude(string $lattitude): self
+    public function setLatitude(string $latitude): self
     {
-        $this->lattitude = $lattitude;
+        $this->latitude = $latitude;
 
         return $this;
     }

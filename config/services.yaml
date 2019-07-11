@@ -18,11 +18,6 @@ services:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
-    app.service.geolocation:
-        class: App\Service\GeoLocation
-#        arguments:
-#            - "@doctrine.orm.entity_manager"
-
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:

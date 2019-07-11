@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Form\PrognosisToRealSaveType;
-use App\Service\GeoLocation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +21,7 @@ class ConfigurationController extends AbstractController
      *
      * @return Response
      */
-    public function index(Request $request, GeoLocation $geolocation): Response
+    public function index(Request $request): Response
     {
         $form = $this->generateApiConfigurationForm();
 
@@ -35,7 +33,7 @@ class ConfigurationController extends AbstractController
         {
             $data = $form->getData();
 
-            $geolocation->returnGeoLocation($data['city']);
+            //$geolocation->loadGeolocationToDatabase($data['city']);
             //$this->container->setParameter('api.key', $data['apiKey']);
            dd($data);
 
