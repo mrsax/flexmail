@@ -1,4 +1,29 @@
-<section class="day-container {{ info.data.icon }}" >
+<section class="day-container" >
+    <div class="day">
+        {{ info.data.time|date('l') }} ({{ info.data.time|date('d') }})
+    </div>
+    <ul class="weather-detail no-padding no-margin {{ info.data.icon }}">
+        <li>
+            <span class="general-info-icon partly-icon"></span>
+        </li>
+        <li class="icon sun">
+            <span class="sun"> </span>
+        </li>
+        <li class="daily-info">
+            <div class="fifty">↑ {{ info.data.sunriseTime }}</div> <div class="fifty">↓ {{ info.data.sunsetTime|date('h:m') }}</div>
+        </li>
+        <li class="icon temp">
+
+        </li>
+        <li class="icon humidity rainrisk">
+
+        </li>
+        <li>
+            <span></span><span></span>
+        </li>
+    </ul>
+        <span></span><span></span>
+
     <ul class="day-content">
 
     </ul>

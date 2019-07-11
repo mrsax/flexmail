@@ -107,7 +107,7 @@ span.error-layout
 div.week-forecast
 {
     max-width:80%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 div.week-forecast>ul
@@ -123,17 +123,67 @@ div.week-forecast>ul>li
     width: 140px;
     border: 1px solid #ffffff;
     position:relative;
+    margin-right:4px;
+}
+
+div.day
+{
+    border: 1px solid #ffffff;
+    text-align: center;
+    padding:1px;
 }
 
 .rain
 {
+    position: relative;
+}
+
+.rain:after
+{
+    content:'';
     background-image: url("../../public/img/weather/rain.gif") ;
+    background-size: 100% 100%;
+    position: absolute;
+    top:0px;
+    left: 0px;
+    width:100%;
+    height:100%;
 }
 
 .partly-cloudy-day
 {
-    background-image: url("../../public/img/weather/partly-cloudy.gif");
+    position: relative;
+}
+
+.partly-cloudy-day:after
+{
+    content:'';
+    background-image: url("../../public/img/weather/partly-cloudy.png") ;
     background-size: 100% 100%;
+    position: absolute;
+    top:0px;
+    left: 0px;
+    width:100%;
+    height:100%;
+    opacity: 0.2;
+}
+.cloudy
+{
+    position: relative;
+}
+
+.cloudy:after
+{
+    content:'';
+    background-image: url("../../public/img/weather/cloudy.png");
+    background-size: 100% 100%;
+    position: absolute;
+    top:0px;
+    left: 0px;
+    width:100%;
+    height:100%;
+    opacity: 0.2;
+
 }
 
 /* ###########  forecats : day ############### */
@@ -141,5 +191,43 @@ section.day-container
 {
     width: 100%;
     height:100%;
-    //background-color: var(--main-day-block-color);
+}
+
+ul.weather-detail
+{
+    list-style-type: none;
+    border: 1px solid red;
+    width: 100%;
+    height:92%;
+}
+
+span.partly-icon
+{
+    background-image: url("../../public/img/weather/partly-clouded-icon.png");
+    width:40px;
+    height:40px;
+}
+
+li.sun
+{
+    background-image: url("../../public/img/weather/sun.png");
+    background-size: 100% 100%;
+    width:40px;
+    height:40px;
+    position: relative;
+    left: 35%;
+    z-index: 1;
+}
+
+li.daily-info
+{
+    font-size: small;
+}
+
+div.fifty
+{
+    width: 49%;
+    text-align: center;
+    display: inline-block;
+    float:left;
 }
