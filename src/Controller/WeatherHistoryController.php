@@ -26,7 +26,7 @@ class WeatherHistoryController extends AbstractController
     public function index(ApiParameters $api): Response
     {
 
-        $results = $api->callApiHistory(2);
+        $results = $api->callApiHistory();
 
         $api = $api->getApiAndCityInfo();
 

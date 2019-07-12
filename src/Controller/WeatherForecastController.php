@@ -33,8 +33,6 @@ class WeatherForecastController extends AbstractController
 
         $api = $api->getApiAndCityInfo();
 
-        //$forecast['currently'] = $resultObject['currently'];
-
         $dailyData = $this->transformData($resultObject['daily']['data']);
 
         return $this->render('weather_forecast/index.html.twig', [

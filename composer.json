@@ -19,6 +19,7 @@
         "symfony/intl": "4.3.*",
         "symfony/monolog-bundle": "^3.4",
         "symfony/orm-pack": "^1.0",
+        "symfony/security-bundle": "4.3.*",
         "symfony/security-csrf": "4.3.*",
         "symfony/serializer": "4.3.*",
         "symfony/twig-bundle": "4.3.*",

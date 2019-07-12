@@ -8,6 +8,7 @@
     --main-margin-top: 20px;
     --background-image: url("https://flexmail.be/frontend/web/uploads/img/cache/Sliders/Slider1/69ca3e5d58-3_1920x700.png");
     --main-day-block-color : #84D8F1;
+    --table-history-bg-color: #123245;
 }
 
 
@@ -306,6 +307,7 @@ div.windicon
 table.history
 {
     width: 80%;
+    background-color: var(--table-history-bg-color);
 }
 
 td>div
@@ -314,7 +316,7 @@ td>div
     width:100%;
 }
 
-table.history, table.history tr , table.history td
+table.history, table.history td
 {
     border: 1px solid #FFFFFF;
 }
@@ -328,3 +330,9 @@ table.history td
 {
     text-align: center;
 }
+
+table.history td
+{
+    padding: 4px 0 4px 0;
+}
+

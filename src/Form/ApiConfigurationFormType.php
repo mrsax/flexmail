@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Validator\Constraints\Regex;
@@ -18,6 +19,17 @@ use App\Repository\CityRepository;
 
 class ApiConfigurationFormType extends AbstractType
 {
+
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    public function __construct(RouterInterface $router)
+    {
+
+        $this->router = $router;
+    }
     /**
      * Create a form to setup an api.
      *
@@ -79,11 +91,9 @@ class ApiConfigurationFormType extends AbstractType
                 'choice_label' => function(City $city) {
                     return sprintf('(%d) %s', $city->getZipcode(), $city->getName());
                 },
-                //'choice_label' => 'name',
                 'choice_value' => 'id',
                 'placeholder' => 'Choose a city',
                 'invalid_message' => 'Choose a City!',
-                'attr' => ['class' => 'input-field']
             ])
         ;
     }
