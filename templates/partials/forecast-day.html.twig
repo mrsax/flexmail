@@ -1,31 +1,36 @@
 <section class="day-container" >
     <div class="day">
-        {{ info.data.time|date('l') }} ({{ info.data.time|date('d') }})
+        {% set dayteday =  info.data.time|date('l') %}
+        {% if info.data.time|date("d") == "now"|date("d") %}
+            {% set dayteday =  "Today" %}
+        {% endif %}
+        {{ dayteday }} ({{ info.data.time|date("d") }})
     </div>
     <ul class="weather-detail no-padding no-margin {{ info.data.icon }}">
-        <li>
-            <span class="general-info-icon partly-icon"></span>
+        <li class="general-info">
+            {{ info.data.summary }}
         </li>
         <li class="icon sun">
-            <span class="sun"> </span>
         </li>
         <li class="daily-info">
-            <div class="fifty">↑ {{ info.data.sunriseTime }}</div> <div class="fifty">↓ {{ info.data.sunsetTime|date('h:m') }}</div>
+            <div class="fifty">↑ {{ info.data.sunriseTime|date("g:ia") }}</div> <div class="fifty">↓ {{ info.data.sunsetTime|date("g:ia") }}</div>
         </li>
-        <li class="icon temp">
-
+        <li class="icon temp-li">
+            <div class="icon temp"> </div>
+            <div > <div class="fifty">min {{ info.data.temperatureLow|number_format(0) }} °C /</div> <div class="fifty">max {{ info.data.temperatureHigh|number_format(0) }} °C</div></div>
         </li>
-        <li class="icon humidity rainrisk">
-
+        <li class="icon uv ozone">
+            <div class="icon uv"> </div>
+            <div > <div class="fifty spec small-text">uv {{ info.data.uvIndex }} </div> <div class="small-text">ozone {{ info.data.ozone }}</div></div>
         </li>
-        <li>
-            <span></span><span></span>
+        <li class="humidity">
+            <div class="icon humidity"> </div>
+            <div class="small-text humidity-field"> {{ info.data.humidity * 100 }} %</div>
         </li>
-    </ul>
-        <span></span><span></span>
-
-    <ul class="day-content">
-
+        <li class="wind">
+            <div class="icon windicon"> </div>
+            <div> <div class="fifty small-text"> {{ info.data.windSpeed }} Kmh</div> <div class=" fifty small-text">dir. {{ info.data.windBearing }} °</div></div>
+        </li>
     </ul>
 
 </section>

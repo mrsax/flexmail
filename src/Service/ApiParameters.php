@@ -97,10 +97,11 @@ class ApiParameters
     {
         $apiRepo = $this->em->getRepository(Api::class);
         $params = $apiRepo->findAll()[0];
+        $exculdedBlocks = ['minutely', 'hourly', 'alerts', 'flags', 'currently'];
 
         try {
 
-            $result = (new Darksky($params->getApiKey()))->forecast($params->getCity()->getLatitude(), $params->getCity()->getLongitude());
+            $result = (new Darksky($params->getApiKey()))->forecast($params->getCity()->getLatitude(), $params->getCity()->getLongitude(), $exculdedBlocks);
             $res = json_decode($result, true);
 
         } catch(DarkskyException $e) {

@@ -7,14 +7,12 @@
 <h1>Forecast for {{ api.city.name }} : </h1>
 
 <div class="week-forecast">
-    <ul class="no-padding no-margin">
+    <ul class="no-padding no-margin forecast ">
         {% for key, day in  daily %}
-            {% if key > 0 %}
-                {% set info = {'data': day} %}
-                    <li class="no-padding no-margin">
-                        {% include '/partials/forecast-day.html.twig' with info %}
-                    </li>
-            {% endif %}
+            {% set info = {'data': day} %}
+            <li class="no-padding no-margin">
+                {% include '/partials/forecast-day.html.twig' with info %}
+            </li>
         {% endfor %}
     </ul>
 
