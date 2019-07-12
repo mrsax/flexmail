@@ -301,3 +301,30 @@ div.windicon
     position: relative;
     left: 38%;
 }
+
+/* ###########  history : index ############### */
+table.history
+{
+    width: 80%;
+}
+
+td>div
+{
+    border: 1px solid green;
+    width:100%;
+}
+
+table.history, table.history tr , table.history td
+{
+    border: 1px solid #FFFFFF;
+}
+
+table.history td
+{
+    font-size: small;
+}
+
+.text-center
+{
+    text-align: center;
+}

@@ -6,10 +6,10 @@ namespace App\Service;
 use App\Entity\Api;
 use App\Entity\City;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\DBAL\DBALException;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Darksky\Darksky;
-use Symfony\Component\Validator\Constraints\Json;
+use Darksky\DarkskyException;
+
 
 /**
  * Service that provides everything about the Api parameters.
@@ -18,6 +18,8 @@ use Symfony\Component\Validator\Constraints\Json;
  */
 class ApiParameters
 {
+    private const UNSET_FIELDS = ['precipIntensity', 'precipIntensityMax', 'moonPhase', 'precipIntensityMaxTime','temperatureHighTime', 'temperatureLowTime', 'temperatureLowTime', 'apparentTemperatureHighTime', 'apparentTemperatureLowTime', 'dewPoint', 'windGust', 'windGustTime', 'cloudCover', 'uvIndexTime', 'visibility', 'temperatureMin', 'temperatureMinTime', 'temperatureMax', 'temperatureMaxTime', 'apparentTemperatureMin', 'apparentTemperatureMinTime', 'apparentTemperatureMax', 'apparentTemperatureMaxTime', 'apparentTemperatureHigh', 'apparentTemperatureLow'];
+
     private const  API_FORM_INPUT_METHOD = 'apiMethod';
     private const  API_FORM_INPUT_URL = 'apiUrl';
     private const  API_FORM_INPUT_ENDPOINT = 'endpoint';
@@ -124,4 +126,74 @@ class ApiParameters
 
         return $apiRepo->findAll()[0];
     }
+
+    /**
+     * Call the weather API service and return a parsed jSon.
+     * Get the history and add unix timestamp for it.
+     *
+     * @param int $amountDays
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function callApiHistory(int $amountDays = 30): array
+    {
+        $resultObject = [];
+
+        $x = $amountDays;
+
+        while($x > 0 )
+        {
+            $date = mktime(0, 0, 0, date("m"), date("d")-$x,   date("Y"));
+
+            $resultObject[] = $this->callApiForHistory($date);
+
+            $x--;
+        }
+
+        return $resultObject;
+    }
+
+    private function callApiForHistory(int $time): array
+    {
+        $apiRepo = $this->em->getRepository(Api::class);
+        $params = $apiRepo->findAll()[0];
+        $exculdedBlocks = ['hourly', 'currently', 'flags'];
+
+        try {
+
+            $result = (new Darksky($params->getApiKey()))->timeMachine($params->getCity()->getLatitude(), $params->getCity()->getLongitude(), $time, $exculdedBlocks);
+            $res = json_decode($result, true)['daily']['data'][0];
+
+        } catch(DarkskyException $e) {
+            //TODO
+        } catch(Exception $e) {
+            // TODO
+        }
+
+        $result = $this->filterDailyInfo($res);
+
+        return $result;
+    }
+
+    /**
+     * Filter the data returned by the api so only used data would appear in frontend.
+     *
+     * @param array $res
+     *
+     * @return array
+     */
+    private function filterDailyInfo($res): array
+    {
+        foreach(self::UNSET_FIELDS as $unsetvalue)
+        {
+            if(array_key_exists($unsetvalue, $res))
+            {
+                unset($res[$unsetvalue]);
+            }
+        }
+
+        return $res;
+    }
+
 }

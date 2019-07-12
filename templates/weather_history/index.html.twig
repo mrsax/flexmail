@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello WeatherHistoryController!{% endblock %}
+
+{% block body %}
+
+    <h1>30 days history from : {{ api.city.name }}</h1>
+
+    <div class="week-history">
+        <table class="no-padding no-margin history ">
+            <thead>
+                <tr>
+                    <th class="text-center ">Date</th>
+                    <th class="text-center ">Summary</th>
+                    <th class="text-center " colspan="2">Sun</th>
+                    <th class="text-center " colspan="2">Temp</th>
+                    <th class="text-center ">Uv</th>
+                    <th class="text-center ">Ozone</th>
+                    <th class="text-center ">Humidity</th>
+                    <th class="text-center " colspan="2">Wind </th>
+                </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Rise</th>
+                <th>Set</th>
+                <th>Min.</th>
+                <th>Max.</th>
+                <th></th>
+                <th></th>
+                <th>%</th>
+                <th>Speed (KmH)</th>
+                <th>Direction (°)</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for daydata in data %}
+                <tr class="no-padding no-margin">
+                    {% include '/partials/history-day.html.twig' with daydata %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+{% endblock %}

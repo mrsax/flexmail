@@ -1,0 +1,34 @@
+<td class="text-center ">
+    {{ daydata.time|date("d-m-Y") }}
+</td>
+<td class="text-center ">
+    {{ daydata.summary }}
+</td>
+<td class="text-center ">
+    {{ daydata.sunriseTime|date("g:ia") }}
+</td>
+<td class="text-center ">
+    {{ daydata.sunsetTime|date("g:ia") }}
+</td>
+<td class="text-center ">
+    {{ daydata.temperatureLow|number_format(0) }}
+</td>
+<td class="text-center ">
+    {{ daydata.temperatureHigh|number_format(0) }}
+</td>
+<td class="text-center ">
+   {{ daydata.uvIndex }}
+</td>
+<td class="text-center ">
+    {{ daydata.ozone }}
+</td>
+<td class="text-center ">
+    {{ daydata.humidity * 100 }}
+</td>
+<td class="text-center ">
+    {{ daydata.windSpeed }}
+</td>
+<td class="text-center ">
+    {{ daydata.windBearing }}
+</td>
+
