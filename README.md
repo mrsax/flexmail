@@ -35,6 +35,10 @@ The Symfony framework is used to make calls to this API.
 * load the fixtures 
 
     > ./bin/console app:load-cities
+    
+* run Unit & Functional tests (some example tests are provided)
+    
+    > ./bin/phpunit
 
 
 

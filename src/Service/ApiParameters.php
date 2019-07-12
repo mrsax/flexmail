@@ -9,6 +9,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Darksky\Darksky;
 use Darksky\DarkskyException;
+use Symfony\Component\HttpFoundation\File\Exception\FormSizeFileException;
+
+
 
 
 /**
@@ -106,10 +109,14 @@ class ApiParameters
             $result = (new Darksky($params->getApiKey()))->forecast($params->getCity()->getLatitude(), $params->getCity()->getLongitude(), $exculdedBlocks);
             $res = json_decode($result, true);
 
+            if ($res === null) {
+                throw new Exception('No data has been returned from API!');
+            }
+
         } catch(DarkskyException $e) {
-            //TODO
+            throw new DarkskyException('The call to the API failed!');
         } catch(Exception $e) {
-            // TODO
+            throw new Exception('The call to the API failed!');
         }
 
         return $res;
@@ -165,10 +172,14 @@ class ApiParameters
             $result = (new Darksky($params->getApiKey()))->timeMachine($params->getCity()->getLatitude(), $params->getCity()->getLongitude(), $time, $exculdedBlocks);
             $res = json_decode($result, true)['daily']['data'][0];
 
+            if ($res === null) {
+                throw new Exception('No data has been returned from API!');
+            }
+
         } catch(DarkskyException $e) {
-            //TODO
+            throw new DarkskyException('The call to the API failed!');
         } catch(Exception $e) {
-            // TODO
+            throw new Exception('The call to the API failed!');
         }
 
         $result = $this->filterDailyInfo($res);
