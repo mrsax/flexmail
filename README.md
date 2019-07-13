@@ -11,6 +11,7 @@ The Symfony framework is used to make calls to this API.
 ## Setup
 
 * Since there is a composer.lock - file, to make sure we use the same versions of packages use in terminal 
+
     > composer install
     
 * get your secret key for the darksky api
@@ -51,7 +52,7 @@ The Symfony framework is used to make calls to this API.
 
 * twig (frontend)
 
-* webpack (with basic boorstrap & jQuery)
+* webpack (with basic boorstrap & jQuery & custom css/javascript)
 
 * swagger (documentation)
 
@@ -64,6 +65,10 @@ The Symfony framework is used to make calls to this API.
 * monolog for logging
 
 * debugging tools
+
+* Guzzle bundle for testing
+
+
 
 ...
 
