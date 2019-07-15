@@ -9,7 +9,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Darksky\Darksky;
 use Darksky\DarkskyException;
-use Symfony\Component\HttpFoundation\File\Exception\FormSizeFileException;
+use GuzzleHttp;
+use GuzzleHttp\Exception as GuzzleException;
+
 
 
 
@@ -142,6 +144,8 @@ class ApiParameters
      *
      * @return array
      * @throws \Exception
+     *
+     * @throws GuzzleHttp\Exception\GuzzleException
      */
     public function callApiHistory(int $amountDays = 30): array
     {
@@ -161,25 +165,50 @@ class ApiParameters
         return $resultObject;
     }
 
+    /**
+     * @param int $time
+     *
+     * @return array
+     *
+     * @throws DarkskyException
+     * @throws GuzzleHttp\Exception\GuzzleException
+     */
     private function callApiForHistory(int $time): array
     {
+        $res = [];
         $apiRepo = $this->em->getRepository(Api::class);
         $params = $apiRepo->findAll()[0];
+        dd($params);
         $exculdedBlocks = ['hourly', 'currently', 'flags'];
+        $client = new GuzzleHttp\Client();
+        $basic_url = 'https://api.darksky.net/forecast/44815b156a85b87d4e55264d9b1f176b/50.8465573,4.351697';
 
         try {
 
-            $result = (new Darksky($params->getApiKey()))->timeMachine($params->getCity()->getLatitude(), $params->getCity()->getLongitude(), $time, $exculdedBlocks);
-            $res = json_decode($result, true)['daily']['data'][0];
+            $responses = $client->send([
+                $client->get('/' . urlencode($basic_url) . '/' . $time, $exculdedBlocks),
+            ]);
 
-            if ($res === null) {
-                throw new Exception('No data has been returned from API!');
+            foreach ($responses as $response)
+            {
+                $res[] = $response->getBody();
             }
 
-        } catch(DarkskyException $e) {
-            throw new DarkskyException('The call to the API failed!');
-        } catch(Exception $e) {
-            throw new Exception('The call to the API failed!');
+            dd($res->getStatusCode());
+
+//            //TODO adapt this with Guzzle multiple
+//            $result = (new Darksky($params->getApiKey()))->timeMachine($params->getCity()->getLatitude(), $params->getCity()->getLongitude(), $time, $exculdedBlocks);
+//            $res = json_decode($result, true)['daily']['data'][0];
+//
+//            if ($res === null) {
+//                throw new Exception('No data has been returned from API!');
+//            }
+
+        } catch (GuzzleException $e) {
+            echo 'The following exceptions were encountered:' . PHP_EOL;
+            foreach ($e as $exception) {
+                echo $exception->getMessage() . PHP_EOL;
+            }
         }
 
         $result = $this->filterDailyInfo($res);
