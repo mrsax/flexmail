@@ -9,11 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Darksky\Darksky;
 use Darksky\DarkskyException;
-use GuzzleHttp;
-use GuzzleHttp\Exception as GuzzleException;
-
-
-
+use Symfony\Component\HttpClient\CurlHttpClient;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 
 /**
@@ -21,7 +18,7 @@ use GuzzleHttp\Exception as GuzzleException;
  * Class ApiParameters
  * @package App\Service
  */
-class ApiParameters
+final class ApiParameters
 {
     private const UNSET_FIELDS = ['precipIntensity', 'precipIntensityMax', 'moonPhase', 'precipIntensityMaxTime','temperatureHighTime', 'temperatureLowTime', 'temperatureLowTime', 'apparentTemperatureHighTime', 'apparentTemperatureLowTime', 'dewPoint', 'windGust', 'windGustTime', 'cloudCover', 'uvIndexTime', 'visibility', 'temperatureMin', 'temperatureMinTime', 'temperatureMax', 'temperatureMaxTime', 'apparentTemperatureMin', 'apparentTemperatureMinTime', 'apparentTemperatureMax', 'apparentTemperatureMaxTime', 'apparentTemperatureHigh', 'apparentTemperatureLow'];
 
@@ -97,8 +94,8 @@ class ApiParameters
     /**
      * Call the weather API service and return a parsed jSon.
      *
-     * @return \stdClass
-     * @throws \Exception
+     * @return array
+     * @throws DarkskyException
      */
     public function callApi(): array
     {
@@ -143,77 +140,89 @@ class ApiParameters
      * @param int $amountDays
      *
      * @return array
-     * @throws \Exception
      *
-     * @throws GuzzleHttp\Exception\GuzzleException
+     * @throws TransportExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      */
     public function callApiHistory(int $amountDays = 30): array
     {
-        $resultObject = [];
+        $apiRepo = $this->em->getRepository(Api::class);
+        $params = $apiRepo->findAll()[0];
 
-        $x = $amountDays;
-
-        while($x > 0 )
-        {
-            $date = mktime(0, 0, 0, date("m"), date("d")-$x,   date("Y"));
-
-            $resultObject[] = $this->callApiForHistory($date);
-
-            $x--;
-        }
+        $resultObject[] = $this->callApiForHistory($params, $amountDays);
 
         return $resultObject;
     }
 
     /**
-     * @param int $time
+     * Returns an array of responses.
+     *
+     * @param Api $params
+     * @param string $amountofCalls
      *
      * @return array
      *
-     * @throws DarkskyException
-     * @throws GuzzleHttp\Exception\GuzzleException
+     * @throws TransportExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      */
-    private function callApiForHistory(int $time): array
+    private function callApiForHistory(Api $params, string $amountofCalls): array
     {
         $res = [];
-        $apiRepo = $this->em->getRepository(Api::class);
-        $params = $apiRepo->findAll()[0];
-        dd($params);
+        $apiRes = [];
         $exculdedBlocks = ['hourly', 'currently', 'flags'];
-        $client = new GuzzleHttp\Client();
-        $basic_url = 'https://api.darksky.net/forecast/44815b156a85b87d4e55264d9b1f176b/50.8465573,4.351697';
+        $exclude = implode(',', $exculdedBlocks);
 
-        try {
+        $host = $params->getUrl();
+        $path = $params->getEndpoint() . '/' . $params->getApiKey();
+        $path .= '/' . $params->getCity()->getLatitude() . ',' . $params->getCity()->getLongitude();
 
-            $responses = $client->send([
-                $client->get('/' . urlencode($basic_url) . '/' . $time, $exculdedBlocks),
-            ]);
+        $client = new CurlHttpClient();
+        $responses = [];
 
-            foreach ($responses as $response)
+        $x = $amountofCalls;
+
+        while($x > 0 )
+        {
+            $date = mktime(0, 0, 0, date("m"), date("d")-$x,   date("Y"));
+            $responses[] = $client->request(strtoupper($params->getMethod()), $host . $path . ',' . $date . '?exclude=' . $exclude);
+            $x--;
+        }
+
+        foreach ($client->stream($responses, 1.5) as $response => $chunk)
+        {
+            if ($chunk->isTimeout())
             {
-                $res[] = $response->getBody();
+                new Exception('The API is not accessible! Check later');
             }
-
-            dd($res->getStatusCode());
-
-//            //TODO adapt this with Guzzle multiple
-//            $result = (new Darksky($params->getApiKey()))->timeMachine($params->getCity()->getLatitude(), $params->getCity()->getLongitude(), $time, $exculdedBlocks);
-//            $res = json_decode($result, true)['daily']['data'][0];
-//
-//            if ($res === null) {
-//                throw new Exception('No data has been returned from API!');
-//            }
-
-        } catch (GuzzleException $e) {
-            echo 'The following exceptions were encountered:' . PHP_EOL;
-            foreach ($e as $exception) {
-                echo $exception->getMessage() . PHP_EOL;
+            try {
+                if ($chunk->isFirst())
+                {
+                    $apiRes[] = $response->getContent();
+                }
+                elseif ($chunk->isLast())
+                {
+                    $apiRes[] = $response->getContent();
+                }
+                else
+                {
+                    $apiRes[] = $response->getContent();
+                }
+            } catch (TransportExceptionInterface $e)
+            {
+                echo $e->getMessage();
             }
         }
 
-        $result = $this->filterDailyInfo($res);
+        foreach($apiRes as &$response)
+        {
+            $res[] = $this->filterDailyInfo(json_decode($response, true)['daily']['data'][0]);
+        }
 
-        return $result;
+        return $res;
     }
 
     /**

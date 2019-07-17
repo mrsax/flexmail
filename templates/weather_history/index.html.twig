@@ -35,7 +35,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for daydata in data %}
+            {% for daydata in data.0 %}
                 <tr class="no-padding no-margin">
                     {% include '/partials/history-day.html.twig' with daydata %}
                 </tr>

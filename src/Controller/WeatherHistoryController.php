@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class WeatherHistoryController extends AbstractController
+final class WeatherHistoryController extends AbstractController
 {
     public function __construct()
     {
@@ -21,7 +21,10 @@ class WeatherHistoryController extends AbstractController
      * @param ApiParameters $api
      * @return Response
      *
-     * @throws \Exception
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function index(ApiParameters $api): Response
     {
